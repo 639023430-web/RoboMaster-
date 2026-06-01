@@ -1,5 +1,20 @@
 # 麦轮运动学解算库 (Mecanum Wheel Kinematics)
 
+纯 C 实现的麦克纳姆轮运动学解算库，同时提供 C++ 类封装，适用于 RoboMaster 机器人底盘的全向运动控制。
+
+## 文件结构
+
+```
+Mecanum/
+├── kinematics.h      C 头文件（类型定义 + 函数声明）
+├── kinematics.c      C 实现文件
+├── kinematics.hpp    C++ 头文件（MecanumKinematics 类）
+├── kinematics.cpp    C++ 实现文件
+└── README.md         本文件
+```
+
+---
+
 ## 1. 麦轮布局
 
 俯视图，X 前进，Y 左移：

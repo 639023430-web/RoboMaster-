@@ -10,7 +10,7 @@
  */
 
 #include "kinematics.hpp"
-#include <cmath>          //移植时使用数学加速库
+#include <cmath>
 #include <algorithm>
 
 /**
