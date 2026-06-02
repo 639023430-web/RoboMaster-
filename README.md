@@ -22,6 +22,12 @@ RoboMaster/
 │   ├── kinematics.hpp         # C++ 版本头文件
 │   ├── kinematics.cpp         # C++ 版本实现
 │   └── README.md              # 麦轮库文档
+├── Chassis/                   # 通用底盘运动控制库
+│   ├── chassis.hpp            # C++ 头文件（类定义）
+│   ├── chassis.cpp            # C++ 实现文件
+│   └── README.md              # 底盘库文档
+├── Motor/                     # 电机抽象类
+│   └── motor.hpp              # C++ 头文件
 ├── LICENSE
 └── README.md                  # 本文件
 ```
@@ -68,6 +74,36 @@ q.toEulerZYX(r, p, y);
 
 麦克纳姆轮底盘的正逆运动学解算，实现全向移动控制。
 
+> 详细文档见 [Mecanum/README.md](Mecanum/README.md)
+
+### 3. Chassis —— 通用底盘运动控制库 🏎️
+
+面向对象方式封装的底盘控制库，一套接口覆盖多种底盘构型，想换底盘只要换个类就行！
+
+**支持的底盘类型：**
+- `MecanumChassis` —— 麦克纳姆轮底盘（4轮），横着走的螃蟹步 🦀
+- `Omni3Chassis` —— 三轮全向轮底盘（120°分布），小巧灵活的三角战士 🔺
+- `Omni4Chassis` —— 四轮全向轮底盘（X型布局），稳如老狗的全面手 🛡️
+- `SwerveChassis` —— 舵轮底盘（4轮独立转向），指哪打哪的终极形态 🎯
+
+**核心功能：**
+- 统一基类接口：`SetSpeed()` / `Stop()` / `IsMoving()`
+- 正逆运动学解算（每种底盘都有）
+- 轮速等比例限幅（保持方向不变）
+- 舵轮模块独立控制（驱动 + 转向）
+
+**C++ 示例：**
+```cpp
+#include "Chassis/chassis.hpp"
+
+// 想用什么底盘，就 new 什么类，接口一模一样！
+MecanumChassis chassis(ids, 0.05f, 0.125f, 0.125f);
+chassis.SetSpeed(1.0f, 0.0f, 0.5f);  // 前进 + 旋转
+chassis.Stop();
+```
+
+> 详细文档见 [Chassis/README.md](Chassis/README.md)
+
 **核心功能：**
 - 逆运动学：底盘速度 (vx, vy, ωz) → 四个麦轮角速度
 - 正运动学：四个麦轮角速度 → 底盘里程计速度
@@ -108,6 +144,7 @@ kin.execute(cmd);  // 一步完成：逆解算 → 限幅 → 下发电机
 | 0.1 | 2026-05-31 | 麦轮运动学初版（C + C++） |
 | 0.1 | 2026-06-01 | 四元数初版（结构体 + 乘法 + 归一化） |
 | 1.0 | 2026-06-02 | 四元数完善：16 个函数 + C++ 类封装 + 完整中文 Doxygen 注释 |
+| 1.1 | 2026-06-02 | 重构底盘库：麦轮 + 三轮全向 + 四轮全向 + 舵轮，C++ 类封装 + Doxygen 注释 |
 
 ## License
 

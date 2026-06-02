@@ -15,7 +15,6 @@
 #include <cstdint>
 #include <array>
 #include <functional>
-
 class MecanumKinematics {
 public:
     /* 底盘目标速度 */
